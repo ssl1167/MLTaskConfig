@@ -1,0 +1,17 @@
+{
+  "task_id": "140ecb83-7e7a-4f07-8448-4ee0eb131af8",
+  "model": "K最近邻",
+  "dataset": "糖尿病进展预测 (简单)",
+  "dataset_type": "regression",
+  "metrics": [
+    "R²分数",
+    "均方误差",
+    "均方根误差",
+    "平均绝对误差"
+  ],
+  "learning_rate": "低学习率 (0.001)",
+  "split_ratio": 0.2,
+  "splitter": "简单分割",
+  "duration": "37.60秒",
+  "end_time": "2025-10-22 22:11:11"
+}

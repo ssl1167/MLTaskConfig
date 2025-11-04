@@ -1,0 +1,18 @@
+{
+  "task_id": "c83314d4-f4e9-4890-acf6-71aad2ff2f4a",
+  "model": "K-Means聚类",
+  "dataset": "批发客户数据集 (适合聚类)",
+  "dataset_type": "classification",
+  "metrics": [
+    "准确率",
+    "精确率",
+    "召回率",
+    "F1分数",
+    "ROC AUC"
+  ],
+  "learning_rate": "低学习率 (0.001)",
+  "split_ratio": 0.2,
+  "splitter": "简单分割",
+  "duration": "2.66秒",
+  "end_time": "2025-11-03 19:39:44"
+}

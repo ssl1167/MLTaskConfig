@@ -1,0 +1,17 @@
+{
+  "task_id": "3c751d15-8c62-4868-a102-f863feb01a52",
+  "model": "随机森林",
+  "dataset": "共享单车需求预测 (中等)",
+  "dataset_type": "regression",
+  "metrics": [
+    "R²分数",
+    "均方误差",
+    "均方根误差",
+    "平均绝对误差"
+  ],
+  "learning_rate": "低学习率 (0.001)",
+  "split_ratio": 0.2,
+  "splitter": "简单分割",
+  "duration": "11.64秒",
+  "end_time": "2025-10-27 11:37:30"
+}

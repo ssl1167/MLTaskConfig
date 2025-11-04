@@ -1,0 +1,18 @@
+{
+  "task_id": "44863257-be34-4808-bdfa-a0d088fa4cb6",
+  "model": "随机森林",
+  "dataset": "收入预测数据集 (中等-复杂)",
+  "dataset_type": "classification",
+  "metrics": [
+    "准确率",
+    "精确率",
+    "召回率",
+    "F1分数",
+    "ROC AUC"
+  ],
+  "learning_rate": "低学习率 (0.001)",
+  "split_ratio": 0.2,
+  "splitter": "简单分割",
+  "duration": "18.20秒",
+  "end_time": "2025-10-27 11:27:41"
+}

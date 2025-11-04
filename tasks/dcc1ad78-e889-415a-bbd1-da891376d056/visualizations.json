@@ -1,0 +1,8 @@
+{
+  "data_distribution": "/static/images/dcc1ad78-e889-415a-bbd1-da891376d056/data_distribution.png",
+  "correlation_matrix": "/static/images/dcc1ad78-e889-415a-bbd1-da891376d056/correlation_matrix.png",
+  "feature_importance": "/static/images/dcc1ad78-e889-415a-bbd1-da891376d056/feature_importance.png",
+  "residuals": "/static/images/dcc1ad78-e889-415a-bbd1-da891376d056/residuals.png",
+  "learning_curve": "/static/images/dcc1ad78-e889-415a-bbd1-da891376d056/learning_curve.png",
+  "truth_vs_pred": "/static/images/dcc1ad78-e889-415a-bbd1-da891376d056/truth_vs_pred.png"
+}

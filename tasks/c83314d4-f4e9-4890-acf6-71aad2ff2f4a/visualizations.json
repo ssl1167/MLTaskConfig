@@ -1,0 +1,6 @@
+{
+  "cluster_scatter": "/static/images/c83314d4-f4e9-4890-acf6-71aad2ff2f4a/kmeans_cluster_scatter.png",
+  "cluster_sizes": "/static/images/c83314d4-f4e9-4890-acf6-71aad2ff2f4a/kmeans_cluster_sizes.png",
+  "contingency_matrix": "/static/images/c83314d4-f4e9-4890-acf6-71aad2ff2f4a/kmeans_contingency.png",
+  "truth_vs_clusters": "/static/images/c83314d4-f4e9-4890-acf6-71aad2ff2f4a/kmeans_truth_vs_clusters.png"
+}

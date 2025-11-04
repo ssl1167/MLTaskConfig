@@ -1,0 +1,10 @@
+{
+  "data_distribution": "/static/images/3c68d439-6948-48aa-9fff-f4d3d748d611/data_distribution.png",
+  "correlation_matrix": "/static/images/3c68d439-6948-48aa-9fff-f4d3d748d611/correlation_matrix.png",
+  "feature_importance": "/static/images/3c68d439-6948-48aa-9fff-f4d3d748d611/feature_importance.png",
+  "truth_vs_pred": "/static/images/3c68d439-6948-48aa-9fff-f4d3d748d611/truth_vs_pred.png",
+  "confusion_matrix": "/static/images/3c68d439-6948-48aa-9fff-f4d3d748d611/confusion_matrix.png",
+  "prediction_confidence": "/static/images/3c68d439-6948-48aa-9fff-f4d3d748d611/prediction_confidence.png",
+  "roc_curve": "/static/images/3c68d439-6948-48aa-9fff-f4d3d748d611/roc_curve.png",
+  "precision_recall_curve": "/static/images/3c68d439-6948-48aa-9fff-f4d3d748d611/precision_recall_curve.png"
+}

@@ -1,0 +1,17 @@
+{
+  "task_id": "78646863-a796-424a-9981-d6d853b15301",
+  "model": "随机森林",
+  "dataset": "混凝土强度预测 (简单)",
+  "dataset_type": "regression",
+  "metrics": [
+    "R²分数",
+    "均方误差",
+    "均方根误差",
+    "平均绝对误差"
+  ],
+  "learning_rate": "中等学习率 (0.01)",
+  "split_ratio": 0.3,
+  "splitter": "简单分割",
+  "duration": "3.52秒",
+  "end_time": "2025-10-22 20:01:06"
+}

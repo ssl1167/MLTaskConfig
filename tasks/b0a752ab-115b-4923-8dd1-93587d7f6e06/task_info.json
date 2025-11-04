@@ -1,0 +1,18 @@
+{
+  "task_id": "b0a752ab-115b-4923-8dd1-93587d7f6e06",
+  "model": "随机森林",
+  "dataset": "鸢尾花数据集 (简单)",
+  "dataset_type": "classification",
+  "metrics": [
+    "准确率",
+    "精确率",
+    "召回率",
+    "F1分数",
+    "ROC AUC"
+  ],
+  "learning_rate": "中等学习率 (0.01)",
+  "split_ratio": 0.2,
+  "splitter": "简单分割",
+  "duration": "7.95秒",
+  "end_time": "2025-10-24 16:23:02"
+}

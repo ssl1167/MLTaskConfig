@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任务结果 - MLTaskConfig</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+        }
+        .result-card {
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .result-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .visualization-img {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .visualization-img:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .metric-card {
+            transition: all 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* 图片放大模态框样式 */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .image-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content-wrapper {
+            position: relative;
+            max-width: 95%;
+            max-height: 95%;
+            animation: zoomIn 0.3s ease;
+        }
+        
+        .modal-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #fff;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            line-height: 35px;
+        }
+        
+        .modal-close:hover,
+        .modal-close:focus {
+            color: #f1f1f1;
+            text-decoration: none;
+        }
+        
+        .modal-caption {
+            position: absolute;
+            bottom: -45px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #ccc;
+            font-size: 16px;
+            padding: 10px;
+        }
+        
+        .modal-download {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            padding: 5px 10px;
+        }
+        
+        .modal-download:hover {
+            color: #4CAF50;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        /* 添加点击提示 */
+        .img-click-hint {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .card:hover .img-click-hint {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-brain mr-2 text-success"></i>
+                <span class="text-success font-weight-bold">MLTaskConfig</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">任务配置</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">历史记录</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="container mt-5 mb-5">
+        <div class="mb-4">
+            <h1 class="text-center text-success mb-4">
+                <i class="fas fa-chart-line mr-2"></i>任务结果详情
+            </h1>
+            <p class="text-center text-muted">任务ID: {{ task_id }}</p>
+        </div>
+        
+        <!-- 任务信息 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card result-card">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="mb-0"><i class="fas fa-info-circle mr-2"></i>任务信息</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>数据集:</strong> {{ task_info.dataset }}</p>
+                                <p><strong>模型:</strong> {{ task_info.model }}</p>
+                                <p><strong>任务类型:</strong> {{ task_info.dataset_type }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>学习率:</strong> {{ task_info.learning_rate }}</p>
+                                <p><strong>分割比例:</strong> {{ task_info.split_ratio }}</p>
+                                <p><strong>分割器:</strong> {{ task_info.splitter }}</p>
+                    </div>
+                    </div>
+                        {% if task_info.duration %}
+                        <div class="row">
+                            <div class="col-12">
+                                <p><strong>运行时间:</strong> {{ task_info.duration }}</p>
+                                {% if task_info.end_time %}
+                                <p><strong>完成时间:</strong> {{ task_info.end_time }}</p>
+                                {% endif %}
+                    </div>
+                    </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- 运行日志 -->
+            <div class="col-md-6 mb-4">
+                <div class="card result-card">
+                    <div class="card-header bg-info text-white">
+                        <h3 class="mb-0"><i class="fas fa-file-alt mr-2"></i>运行日志</h3>
+                    </div>
+                    <div class="card-body">
+                        <div style="max-height: 400px; overflow-y: auto; font-family: 'Courier New', monospace; background-color: #f8f9fa; padding: 15px; border-radius: 4px;">
+                            {% for log in logs %}
+                            <div class="mb-1">{{ log.strip() }}</div>
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 评估指标 -->
+            <div class="col-md-6 mb-4">
+                <div class="card result-card">
+                    <div class="card-header bg-warning text-dark">
+                        <h3 class="mb-0"><i class="fas fa-tachometer-alt mr-2"></i>评估指标</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            {% for metric, value in results.items() %}
+                            <div class="col-md-6">
+                                <div class="card metric-card bg-light border-left border-success p-3">
+                                    <h6 class="text-success mb-1">{{ metric }}</h6>
+                                    <h4 class="text-success font-weight-bold">
+                                        {% if value is number %}
+                                            {{ "%.4f"|format(value) }}
+                                        {% else %}
+                                            {{ value }}
+                                        {% endif %}
+                                    </h4>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 可视化结果 -->
+        {% if visualizations %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card result-card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0"><i class="fas fa-chart-bar mr-2"></i>可视化展示</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-4">
+                            {% for viz_name, viz_path in visualizations.items() %}
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card h-100">
+                                    <div class="card-body text-center position-relative">
+                                        <img src="{{ viz_path }}" 
+                                             class="visualization-img" 
+                                             alt="{{ viz_name }}" 
+                                             data-viz-name="{{ viz_name }}"
+                                             onclick="openImageModal(this)"
+                                             onerror="handleImageError(this, '{{ viz_name }}')">
+                                        <div class="img-click-hint">
+                                            <i class="fas fa-search-plus"></i> 点击放大查看
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- 返回按钮 -->
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-success btn-lg">
+                <i class="fas fa-arrow-left mr-2"></i>返回配置页面
+            </a>
+        </div>
+    </main>
+
+    <!-- 图片放大模态框 -->
+    <div id="imageModal" class="image-modal" onclick="closeImageModal(event)">
+        <div class="modal-content-wrapper">
+            <button class="modal-download" onclick="downloadImage(event)" title="下载图片">
+                <i class="fas fa-download"></i> 下载
+            </button>
+            <button class="modal-close" onclick="closeImageModal(event)" title="关闭">&times;</button>
+            <img id="modalImage" class="modal-image" src="" alt="">
+            <div id="modalCaption" class="modal-caption"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 处理图片加载错误的函数，提供更健壮的错误处理
+        function handleImageError(img, vizName) {
+            // 获取原始的图片路径
+            const originalSrc = img.src;
+            
+            // 尝试修复路径格式
+            let fixedPath = originalSrc;
+            
+            // 如果路径不以/static/开头且不包含http（不是绝对URL）
+            if (!fixedPath.startsWith('/static/') && !fixedPath.startsWith('http')) {
+                // 确保路径以/开头
+                if (!fixedPath.startsWith('/')) {
+                    fixedPath = '/' + fixedPath;
+                }
+                
+                // 尝试从路径中提取static/部分
+                if (fixedPath.includes('/static/')) {
+                    fixedPath = fixedPath.substring(fixedPath.indexOf('/static/'));
+                } else {
+                    // 如果路径中没有/static/，移除可能存在的相对路径部分并添加/static/前缀
+                    fixedPath = fixedPath.replace(/^\/?static\/?/, '');
+                    fixedPath = '/static/' + fixedPath;
+                }
+            }
+            
+            // 如果修复后的路径与原始路径不同，尝试加载修复后的路径
+            if (fixedPath !== originalSrc) {
+                const tempImg = new Image();
+                tempImg.onload = function() {
+                    img.src = fixedPath;
+                };
+                tempImg.onerror = function() {
+                    // 如果修复路径也失败，显示占位图
+                    img.src = 'https://via.placeholder.com/400x300?text=' + encodeURIComponent(vizName);
+                };
+                tempImg.src = fixedPath;
+            } else {
+                // 显示占位图
+                img.src = 'https://via.placeholder.com/400x300?text=' + encodeURIComponent(vizName);
+            }
+            
+            // 更新alt文本
+            img.alt = '无法加载 ' + vizName;
+        }
+        
+        // 打开图片放大模态框
+        function openImageModal(imgElement) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const caption = document.getElementById('modalCaption');
+            
+            // 设置模态框图片和标题
+            modalImg.src = imgElement.src;
+            modalImg.alt = imgElement.alt;
+            caption.textContent = imgElement.getAttribute('data-viz-name') || imgElement.alt;
+            
+            // 显示模态框
+            modal.classList.add('active');
+            
+            // 阻止body滚动
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // 关闭图片模态框
+        function closeImageModal(event) {
+            const modal = document.getElementById('imageModal');
+            const modalContentWrapper = document.querySelector('.modal-content-wrapper');
+            
+            // 只在点击模态框背景或关闭按钮时关闭，不在点击图片时关闭
+            if (event.target === modal || event.target.classList.contains('modal-close')) {
+                modal.classList.remove('active');
+                // 恢复body滚动
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        // 下载图片
+        function downloadImage(event) {
+            event.stopPropagation(); // 阻止事件冒泡，防止关闭模态框
+            
+            const modalImg = document.getElementById('modalImage');
+            const caption = document.getElementById('modalCaption');
+            const imageSrc = modalImg.src;
+            const imageName = caption.textContent || 'visualization';
+            
+            // 创建一个临时链接进行下载
+            const link = document.createElement('a');
+            link.href = imageSrc;
+            link.download = imageName + '.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // 键盘事件：按ESC键关闭模态框
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' || event.key === 'Esc') {
+                const modal = document.getElementById('imageModal');
+                if (modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+        
+        // 阻止模态框内容点击时关闭
+        document.querySelector('.modal-content-wrapper')?.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    </script>
+</body>
+</html>

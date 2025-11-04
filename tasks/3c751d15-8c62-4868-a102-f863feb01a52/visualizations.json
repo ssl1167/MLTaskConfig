@@ -1,0 +1,7 @@
+{
+  "data_distribution": "/static/images/3c751d15-8c62-4868-a102-f863feb01a52/data_distribution.png",
+  "correlation_matrix": "/static/images/3c751d15-8c62-4868-a102-f863feb01a52/correlation_matrix.png",
+  "feature_importance": "/static/images/3c751d15-8c62-4868-a102-f863feb01a52/feature_importance.png",
+  "truth_vs_pred": "/static/images/3c751d15-8c62-4868-a102-f863feb01a52/truth_vs_pred.png",
+  "residuals": "/static/images/3c751d15-8c62-4868-a102-f863feb01a52/residuals.png"
+}

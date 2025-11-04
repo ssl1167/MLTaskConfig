@@ -1,0 +1,8 @@
+{
+  "data_distribution": "/static/images/1d6c794c-31c6-4e07-8a9e-e342e890c18c/data_distribution.png",
+  "correlation_matrix": "/static/images/1d6c794c-31c6-4e07-8a9e-e342e890c18c/correlation_matrix.png",
+  "feature_importance": "/static/images/1d6c794c-31c6-4e07-8a9e-e342e890c18c/feature_importance.png",
+  "residuals": "/static/images/1d6c794c-31c6-4e07-8a9e-e342e890c18c/residuals.png",
+  "learning_curve": "/static/images/1d6c794c-31c6-4e07-8a9e-e342e890c18c/learning_curve.png",
+  "truth_vs_pred": "/static/images/1d6c794c-31c6-4e07-8a9e-e342e890c18c/truth_vs_pred.png"
+}

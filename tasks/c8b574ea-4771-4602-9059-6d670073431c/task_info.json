@@ -1,0 +1,17 @@
+{
+  "task_id": "c8b574ea-4771-4602-9059-6d670073431c",
+  "model": "支持向量机",
+  "dataset": "共享单车需求预测 (中等)",
+  "dataset_type": "regression",
+  "metrics": [
+    "R²分数",
+    "均方误差",
+    "均方根误差",
+    "平均绝对误差"
+  ],
+  "learning_rate": "低学习率 (0.001)",
+  "split_ratio": 0.3,
+  "splitter": "简单分割",
+  "duration": "21.33秒",
+  "end_time": "2025-10-22 21:24:19"
+}

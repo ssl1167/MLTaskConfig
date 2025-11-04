@@ -1,0 +1,68 @@
+# 忽略Python编译生成的文件
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 忽略Python环境
+venv/
+env/
+
+# 忽略操作系统生成的文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 忽略IDE相关文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 忽略日志文件
+*.log
+logs/
+
+# 忽略临时文件
+*.tmp
+*.temp
+
+# 忽略测试相关文件
+.pytest_cache/
+
+# 忽略打包相关文件
+build/
+dist/
+*.egg-info/
+
+# 忽略数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# 忽略环境变量文件
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 忽略缓存文件
+.cache/
+
+# 忽略导出的数据
+export/
+data/processed/
+
+# 忽略敏感信息
+*.key
+*.pem
+*.crt
+
+# 忽略可视化生成的图片
+static/images/*
+!static/images/.gitkeep

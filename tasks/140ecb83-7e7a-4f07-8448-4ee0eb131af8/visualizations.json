@@ -1,0 +1,11 @@
+{
+  "data_distribution": "/static/images/140ecb83-7e7a-4f07-8448-4ee0eb131af8/data_distribution.png",
+  "correlation_matrix": "/static/images/140ecb83-7e7a-4f07-8448-4ee0eb131af8/correlation_matrix.png",
+  "pca_visualization": "/static/images/140ecb83-7e7a-4f07-8448-4ee0eb131af8/pca_visualization.png",
+  "feature_importance": "/static/images/140ecb83-7e7a-4f07-8448-4ee0eb131af8/feature_importance.png",
+  "k_selection": "/static/images/140ecb83-7e7a-4f07-8448-4ee0eb131af8/k_selection.png",
+  "neighbor_heatmap": "/static/images/140ecb83-7e7a-4f07-8448-4ee0eb131af8/knn_neighbor_heatmap.png",
+  "residual_plot": "/static/images/140ecb83-7e7a-4f07-8448-4ee0eb131af8/residual_plot.png",
+  "learning_curve": "/static/images/140ecb83-7e7a-4f07-8448-4ee0eb131af8/learning_curve.png",
+  "truth_vs_pred": "/static/images/140ecb83-7e7a-4f07-8448-4ee0eb131af8/knn_truth_vs_pred.png"
+}
